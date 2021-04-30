@@ -2,6 +2,8 @@ package tools.gcs;
 
 import java.util.ArrayList;
 
+import com.google.appengine.api.datastore.EntityNotFoundException;
+
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.MalformedURLException;
@@ -14,7 +16,9 @@ public class Photo implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -5437674884593196427L;
-	private URL url;
+	//private URL url;
+	private String url;
+	private String name;
 	private ArrayList<String> comments;
 	private int likes;
 	private ArrayList<Label> labels;
@@ -23,12 +27,13 @@ public class Photo implements Serializable {
 	private String objectName;
 	private boolean labeled;
 	
-	public Photo(String url, ArrayList<String> comments, int likes) throws MalformedURLException {
-		this.url = new URL(url);
-		this.bucketName = null;
+	public Photo(String name, String url, ArrayList<String> comments, int likes) throws MalformedURLException {
+		//this.url = new URL(url);
+		this.url = url;
+		/*this.bucketName = null;
 		this.objectName = null;
-		this.setSource();
-		
+		this.setSource();*/
+		this.name = name;
 		this.comments = comments;
 		this.likes = likes;
 		
@@ -37,7 +42,7 @@ public class Photo implements Serializable {
 		this.labeled = false;
 	}
 	
-	private void setSource() {
+	/*private void setSource() {
 		String[] path = this.url.getPath().split("/");
 		ArrayList<String> segments = new ArrayList<String>();
 		int index = (path[0] == "") ? 2 : 1;
@@ -46,9 +51,9 @@ public class Photo implements Serializable {
 		}
 		this.bucketName = path[index];
 		this.objectName = String.join("/", segments);
-	}
+	}*/
 
-	public URL getUrl() {
+	public String getUrl() {
 		return url;
 	}
 
@@ -107,6 +112,17 @@ public class Photo implements Serializable {
 		this.labeled = true;
 	}
 	
+	public void completeLabelsByGCD(String projectId) {
+		try {
+			ArrayList<String> labels = GCV.getImageLabels(this.url);
+			Word2VecGCD finder = new Word2VecGCD(projectId);
+			this.labels = finder.getLabels(labels);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		this.labeled = true;
+	}
+	
 	public Label nearestLabel(ArrayList<Label> categorylabels) {
 		Label nearest = labels.get(0);
 		double dist = 50;
@@ -128,7 +144,6 @@ public class Photo implements Serializable {
 	}
 	
 	public String getName() {
-		Path path = Paths.get(this.url.getFile());
-		return path.getFileName().toString();
+		return this.name;
 	}
 }
