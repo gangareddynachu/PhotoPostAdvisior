@@ -12,7 +12,6 @@ import javax.servlet.http.HttpSession;
 
 import tools.gcs.Photo;
 import tools.gcs.PhotoSet;
-import tools.gcs.Word2VecDict;
 
 /**
  * Servlet implementation class GetLabels2
