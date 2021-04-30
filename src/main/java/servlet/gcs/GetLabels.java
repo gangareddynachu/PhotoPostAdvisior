@@ -19,10 +19,8 @@ import tools.gcs.Word2VecDict;
  */
 @WebServlet("/GetLabels")
 public class GetLabels extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = 1L;	
 	private static final String projectId = "test-eclipse-tools";
-	private Word2VecDict dict;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -30,19 +28,24 @@ public class GetLabels extends HttpServlet {
     public GetLabels() {
         super();
         // TODO Auto-generated constructor stub
-        this.dict = new Word2VecDict();
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<Photo> samples = Sample.getPhotoSamples();
+		/*ArrayList<Photo> samples = Sample.getPhotoSamples();
 		for (Photo photo : samples) {
-			photo.completeLabelsByDict(projectId, this.dict);
-		}
+			photo.completeLabelsBySingle(projectId);
+		}*/
 		
 		HttpSession session = request.getSession();
+		String pageId = session.getAttribute("pageId").toString();
+		ArrayList<Photo> samples = Sample.getPhotos(pageId);
+		for (Photo photo : samples) {
+			photo.completeLabelsByGCD(projectId);
+		}
+		
 		PhotoSet photoSet = new PhotoSet(samples);
 		session.setAttribute("photoSet", photoSet);
 		

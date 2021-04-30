@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import tools.gcs.Label;
 import tools.gcs.PhotoSet;
-import tools.gcs.Word2VecDict;
+import tools.gcs.Word2VecGCD;
 import tools.gcs.Categorization;
 
 /**
@@ -21,27 +21,24 @@ import tools.gcs.Categorization;
  */
 @WebServlet("/Categorize")
 public class Categorize extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	private Word2VecDict dict;
+	private static final long serialVersionUID = 1L;	
+	private static final String projectId = "test-eclipse-tools";
        
     /**
      * @see HttpServlet#HttpServlet()
      */
     public Categorize() {
         super();
-        this.dict = new Word2VecDict();
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String[] choosedLabelNames = request.getParameterValues("choosed_label");
-		ArrayList<Label> choosedLabels = new ArrayList<Label>();
-		for (String name : choosedLabelNames) {
-			Label label = this.dict.getLabel(name);
-			choosedLabels.add(label);
-		}
+		String[] choosedLabelNames = request.getParameterValues("choosed_label");		
+		Word2VecGCD finder = new Word2VecGCD(projectId);
+		ArrayList<Label> choosedLabels = finder.getLabels(choosedLabelNames);
+		
 
 		HttpSession session = request.getSession();
 		PhotoSet photoSet = (PhotoSet) session.getAttribute("photoSet");

@@ -43,6 +43,14 @@ public class Word2VecGCD {
 		return label;
 	}
 	
+	public ArrayList<Label> getLabels(String[] words) {
+		ArrayList<String> _words = new ArrayList<String>();
+		for (String word : words) {
+			_words.add(word);
+		}
+		return this.getLabels(_words);
+	}
+	
 	public ArrayList<Label> getLabels(ArrayList<String> words) {
 		ArrayList<Label> results = new ArrayList<Label>();
 		for (String word : words) {
