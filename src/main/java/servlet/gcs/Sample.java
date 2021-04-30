@@ -3,9 +3,13 @@ package servlet.gcs;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 
+import com.google.cloud.datastore.Entity;
+
+import tools.gcs.GCD;
 import tools.gcs.Photo;
 
 public class Sample {
+	private static final String projectId = "test-eclipse-tools";
 	public static ArrayList<Photo> getPhotoSamples() {
 		ArrayList<Photo> samples = new ArrayList<Photo>();
 		
@@ -26,7 +30,7 @@ public class Sample {
 		}
 		for (String url : urls) {
 			try {
-				Photo photo = new Photo(url, comments, likes);
+				Photo photo = new Photo("", url, comments, likes);
 				samples.add(photo);
 			} catch (MalformedURLException e) {
 				// TODO Auto-generated catch block
@@ -35,5 +39,27 @@ public class Sample {
 		}
 		
 		return samples;
+	}
+	
+	public static ArrayList<Photo> getPhotos(String pageId) {
+		ArrayList<Photo> photos = new ArrayList<Photo>();
+		
+		GCD gcd = new GCD(projectId);
+		ArrayList<Entity> photoEntities = gcd.getPagePhotos(pageId);
+		
+		ArrayList<String> comments = new ArrayList<String>();
+		int likes = 10;
+		
+		for (Entity photoEntity : photoEntities) {
+			String url = photoEntity.getString("url");
+			String name = photoEntity.getKey().getName();
+			try {
+				Photo photo = new Photo(name, url, comments, likes);
+				photos.add(photo);
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			}
+		}
+		return photos;
 	}
 }
