@@ -12,7 +12,7 @@
 		if (response.status === 'connected') {
 			console.log(response);
 			let token = response.authResponse.accessToken
-			window.location.href = '/Test?access_token=' + token;
+			window.location.href = '/GetPageId?access_token=' + token;
   		} else {
   			document.getElementById('status').innerHTML =
 				'Please log into this webpage.';
@@ -21,6 +21,7 @@
 	
 	function FBLogin() {
 		FB.login(function(response){ // step 1
+			console.log('Getting FB login status')
 			FB.getLoginStatus(function(response) {
 				statusChangeCallback(response);
 			});
@@ -46,8 +47,6 @@
 
 <button onclick="FBLogin()">Login</button>
 <div id="status"></div>
-<div id="email"></div>
-<img id="pic">
 
 </body>
 </html>
