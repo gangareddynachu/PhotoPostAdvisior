@@ -23,20 +23,54 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+
+import com.google.cloud.datastore.Datastore;
+import com.google.cloud.datastore.DatastoreOptions;
+import com.google.cloud.datastore.Entity;
+import com.google.cloud.datastore.Key;
+import com.google.cloud.datastore.Query;
+import com.google.cloud.datastore.QueryResults;
+
+/** 
+ * @author      Su Yeh-Tarn, ysu19@horizon.csueastbay.edu
+ * @since       1.0
+ */
 public class GCV {
 
+	/**
+	 * Get the array list containing the label objects of an image stored in the cloud storage.
+	 * 
+	 * @param projectId			The Google app id.
+	 * @param bucketName		The name of the bucket storing the image.
+	 * @param objectName		The image name.
+	 * @return					An array list containing strings of the labels.
+	 * @throws IOException		
+	 */
   public static ArrayList<String> getImageLabels(String projectId, String bucketName, String objectName) throws IOException {
 	  Storage storage = StorageOptions.newBuilder().setProjectId(projectId).build().getService();
 	  Blob blob = storage.get(BlobId.of(bucketName, objectName));
 	  return getImageLabels(blob.getContent());
   }
-  
+	/**
+	 * Get the array list containing the label objects of an image stored in the cloud storage.
+	 * 
+	 * @param imgBytes			The byte array of the image.
+	 * @return					An array list containing strings of the labels.
+	 * @throws IOException
+	 */
   public static ArrayList<String> getImageLabels(byte[] imgBytes) throws IOException {
 		ByteString byteString = ByteString.copyFrom(imgBytes);
 		Image image = Image.newBuilder().setContent(byteString).build();
 		return getImageLabels(image);
   }
   
+  /**
+   * Get the array list containing the label objects of an image stored in the cloud storage.
+   * 
+   * @param url					The FB image URL.
+   * @return					An array list containing strings of the labels.
+   * @throws IOException
+   */
   public static ArrayList<String> getImageLabels(String url) throws IOException {
 	  	URL link = new URL(url);
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -59,13 +93,15 @@ public class GCV {
 	    }
 		  
 		return getImageLabels(baos.toByteArray());
-	  
-	  
-	  	/*ImageSource imagesrc = ImageSource.newBuilder().setImageUri(url).build();
-		Image image = Image.newBuilder().setSource(imagesrc).build();		
-		return  getImageLabels(baos.toByteArray());*/
   }  
   
+  /**
+   * Get the array list containing the label objects of an image stored in the cloud storage.
+   * 
+   * @param image			The Image object of the image.
+   * @return					An array list containing strings of the labels.
+   * @throws IOException
+   */
   public static ArrayList<String> getImageLabels(Image image) throws IOException {
 		Feature feature = Feature.newBuilder().setType(Feature.Type.LABEL_DETECTION).build();
 		AnnotateImageRequest request =

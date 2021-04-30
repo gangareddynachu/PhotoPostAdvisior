@@ -11,28 +11,31 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+
+/** 
+ * @author      Su Yeh-Tarn, ysu19@horizon.csueastbay.edu
+ * @since       1.0
+ */
 public class Photo implements Serializable {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -5437674884593196427L;
-	//private URL url;
 	private String url;
 	private String name;
 	private ArrayList<String> comments;
 	private int likes;
 	private ArrayList<Label> labels;
 	private float score;
-	private String bucketName;
-	private String objectName;
 	private boolean labeled;
 	
-	public Photo(String name, String url, ArrayList<String> comments, int likes) throws MalformedURLException {
-		//this.url = new URL(url);
+	/**
+	 * Initiate a Photo object.
+	 * 
+	 * @param name			The name of the photo.
+	 * @param url			The FB public URL of the photo.
+	 * @param comments		The comment of the photo.
+	 * @param likes			The like count of the photo.
+	 */
+	public Photo(String name, String url, ArrayList<String> comments, int likes) {
 		this.url = url;
-		/*this.bucketName = null;
-		this.objectName = null;
-		this.setSource();*/
 		this.name = name;
 		this.comments = comments;
 		this.likes = likes;
@@ -42,76 +45,65 @@ public class Photo implements Serializable {
 		this.labeled = false;
 	}
 	
-	/*private void setSource() {
-		String[] path = this.url.getPath().split("/");
-		ArrayList<String> segments = new ArrayList<String>();
-		int index = (path[0] == "") ? 2 : 1;
-		for (int i=index+1; i<path.length; ++i) {
-			segments.add(path[i]);
-		}
-		this.bucketName = path[index];
-		this.objectName = String.join("/", segments);
-	}*/
-
+	/**
+	 * Get the FB URL of the photo.
+	 * 
+	 * @return The FB URL of the photo.
+	 */
 	public String getUrl() {
 		return url;
 	}
-
+	
+	/**
+	 * Get the comments of the photo.
+	 * 
+	 * @return The comments of the photo.
+	 */
 	public ArrayList<String> getComments() {
 		return comments;
 	}
 
+	/**
+	 * Get the like count of the photo.
+	 * 
+	 * @return The like count of the photo.
+	 */
 	public int getLikes() {
 		return likes;
 	}
-
+	
+	/**
+	 * Get the label objects of the photo.
+	 * 
+	 * @return The label objects of the photo.
+	 */
 	public ArrayList<Label> getLabels() {
 		return labels;
 	}
-
+	
+	/**
+	 * Set the label objects of the photo.
+	 * 
+	 * @param labels	The label objects for setting.
+	 */
 	public void setLabels(ArrayList<Label> labels) {
 		this.labels = labels;
 	}
 
+	/**
+	 * Get the score of the photo.
+	 * 
+	 * @return The score of the photo.
+	 */
 	public float getScore() {
 		return score;
 	}
-
-	public String getBucketName() {
-		return bucketName;
-	}
-
-	public String getObjectName() {
-		return objectName;
-	}
 	
-	public void completeLabelsByDict(String projectId, Word2VecDict dict) {
-		try {
-			ArrayList<String> labels =
-					GCV.getImageLabels(projectId, this.bucketName, this.objectName);			 
-			for (String labelName : labels) {				
-				if (dict.hasLabel(labelName)) {
-					Label label = dict.getLabel(labelName);
-					this.labels.add(label);
-				}				
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		this.labeled = true;
-	}
-	
-	public void completeLabels(String projectId) {
-		try {
-			ArrayList<String> labels =
-					GCV.getImageLabels("test-eclipse-tools", this.bucketName, this.objectName);			 
-			this.labels = Word2Vec.getLabels(labels);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		this.labeled = true;
-	}
-	
+	/**
+	 * Fill up the label object for this photo.
+	 * 
+	 * @param projectId		The Google App id.
+	 */
 	public void completeLabelsByGCD(String projectId) {
 		try {
 			ArrayList<String> labels = GCV.getImageLabels(this.url);
@@ -123,6 +115,12 @@ public class Photo implements Serializable {
 		this.labeled = true;
 	}
 	
+	/**
+	 * Get the nearest label in the provided list.
+	 * 
+	 * @param categorylabels		The candidate labels
+	 * @return						The nearest label.
+	 */
 	public Label nearestLabel(ArrayList<Label> categorylabels) {
 		Label nearest = labels.get(0);
 		double dist = 50;
@@ -138,11 +136,21 @@ public class Photo implements Serializable {
 		}
 		return nearest;
 	}
-
+	
+	/**
+	 * Check if this photo is labeled or not.
+	 * 
+	 * @return	True if it is labeled. Otherwise, False.
+	 */
 	public boolean isLabeled() {
 		return labeled;
 	}
 	
+	/**
+	 * Get the name of this photo.
+	 * 
+	 * @return The name of the photo.
+	 */
 	public String getName() {
 		return this.name;
 	}
