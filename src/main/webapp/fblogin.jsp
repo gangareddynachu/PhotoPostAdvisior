@@ -20,6 +20,7 @@
 	}
 	
 	function FBLogin() {
+		console.log('Try to login FB');
 		FB.login(function(response){ // step 1
 			console.log('Getting FB login status')
 			FB.getLoginStatus(function(response) {
