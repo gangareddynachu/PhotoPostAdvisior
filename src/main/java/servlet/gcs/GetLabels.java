@@ -33,19 +33,14 @@ public class GetLabels extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/*ArrayList<Photo> samples = Sample.getPhotoSamples();
-		for (Photo photo : samples) {
-			photo.completeLabelsBySingle(projectId);
-		}*/
-		
 		HttpSession session = request.getSession();
 		String pageId = session.getAttribute("pageId").toString();
-		ArrayList<Photo> samples = Sample.getPhotos(pageId);
-		for (Photo photo : samples) {
+		ArrayList<Photo> photos = Sample.getPhotos(pageId);		
+		for (Photo photo : photos) {
 			photo.completeLabelsByGCD(projectId);
 		}
 		
-		PhotoSet photoSet = new PhotoSet(samples);
+		PhotoSet photoSet = new PhotoSet(photos);
 		session.setAttribute("photoSet", photoSet);
 		
 		ArrayList<String> suggested = photoSet.suggestedLabels();

@@ -95,21 +95,22 @@ public class GCD {
 	}
 	
 	/**
-	 * Create an entity of cloud datastore with the specified kind and name, together with an URL property.
+	 * Create a photo of cloud datastore with the specified kind and name, together with an URL property.
 	 * 
 	 * @param kind	The 'kind' of the entity. 
 	 * @param name	The 'name' of the entity
 	 * @param url	The url string.
+	 * @param likes	The number of likes.
 	 * @return		The Entity in the cloud datastore.
 	 */
-	public Entity createEntity(String kind, String name, String url) {
+	public Entity createPhoto(String kind, String name, String url, int likes) {
 		Key key = this.datastore.newKeyFactory()
 			    .setKind(kind)
 			    .newKey(name);
 		Entity entity = Entity.newBuilder(key)
 				.set("url", url)
+				.set("likes", likes)
 			    .build();
-		System.out.println("entity: " + entity.toString());
 		Entity put = this.datastore.put(entity);
 		return put;
 	}

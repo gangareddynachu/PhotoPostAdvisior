@@ -4,12 +4,19 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 
 import com.google.cloud.datastore.Entity;
+import com.google.cloud.datastore.Value;
 
 import tools.gcs.GCD;
 import tools.gcs.Photo;
 
 public class Sample {
 	private static final String projectId = "test-eclipse-tools";
+	
+	/**
+	 * Generate testing samples
+	 * 
+	 * @return An array list of Photo objects.
+	 */
 	public static ArrayList<Photo> getPhotoSamples() {
 		ArrayList<Photo> samples = new ArrayList<Photo>();
 		
@@ -29,18 +36,19 @@ public class Sample {
 			comments.add(c);
 		}
 		for (String url : urls) {
-			try {
-				Photo photo = new Photo("", url, comments, likes);
-				samples.add(photo);
-			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			Photo photo = new Photo("", url, comments, likes);
+			samples.add(photo);
 		}
 		
 		return samples;
 	}
 	
+	/**
+	 * Generate the photo objects belongs to the FB page
+	 * 
+	 * @param pageId	The FB page ID.
+	 * @return			An array list of photo objects.
+	 */
 	public static ArrayList<Photo> getPhotos(String pageId) {
 		ArrayList<Photo> photos = new ArrayList<Photo>();
 		
@@ -48,17 +56,14 @@ public class Sample {
 		ArrayList<Entity> photoEntities = gcd.getPagePhotos(pageId);
 		
 		ArrayList<String> comments = new ArrayList<String>();
-		int likes = 10;
+		//int likes = 10;
 		
 		for (Entity photoEntity : photoEntities) {
 			String url = photoEntity.getString("url");
 			String name = photoEntity.getKey().getName();
-			try {
-				Photo photo = new Photo(name, url, comments, likes);
-				photos.add(photo);
-			} catch (MalformedURLException e) {
-				e.printStackTrace();
-			}
+			Long likes = photoEntity.getLong("likes");
+			Photo photo = new Photo(name, url, comments, likes.intValue());
+			photos.add(photo);
 		}
 		return photos;
 	}
