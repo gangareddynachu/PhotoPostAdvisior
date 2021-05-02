@@ -2,8 +2,11 @@ package servlet.gcs;
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.google.cloud.datastore.Entity;
+import com.google.cloud.datastore.ListValue;
+import com.google.cloud.datastore.StringValue;
 import com.google.cloud.datastore.Value;
 
 import tools.gcs.GCD;
@@ -55,13 +58,15 @@ public class Sample {
 		GCD gcd = new GCD(projectId);
 		ArrayList<Entity> photoEntities = gcd.getPagePhotos(pageId);
 		
-		ArrayList<String> comments = new ArrayList<String>();
-		//int likes = 10;
-		
 		for (Entity photoEntity : photoEntities) {
 			String url = photoEntity.getString("url");
 			String name = photoEntity.getKey().getName();
 			Long likes = photoEntity.getLong("likes");
+			ArrayList<String> comments = new ArrayList<String>();
+			List<StringValue> _comments = photoEntity.getList("comments");			
+			for (StringValue _comment : _comments) {
+				comments.add(_comment.get());
+			}			
 			Photo photo = new Photo(name, url, comments, likes.intValue());
 			photos.add(photo);
 		}

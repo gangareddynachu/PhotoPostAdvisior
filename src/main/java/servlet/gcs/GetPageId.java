@@ -13,6 +13,8 @@ import javax.servlet.http.HttpSession;
 
 import com.google.cloud.datastore.Entity;
 import com.google.cloud.datastore.Key;
+import com.google.cloud.datastore.ListValue;
+import com.google.cloud.datastore.ListValue.Builder;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;
 import com.restfb.Parameter;
@@ -103,12 +105,20 @@ public class GetPageId extends HttpServlet {
 			}
 			result = facebookClient.fetchObject(
 					photoId, JsonObject.class, Parameter.with("fields", "likes.summary(true)"));
-			JsonObject likes = (JsonObject) result.get("likes");
-			JsonObject summary = (JsonObject) likes.get("summary");
-			int count = summary.get("total_count").asInt();
+			JsonObject likes = result.get("likes").asObject();
+			JsonObject summary = likes.get("summary").asObject();
+			int like_count = summary.get("total_count").asInt();
+			
+			result = facebookClient.fetchObject(
+					photoId + "/comments", JsonObject.class);
+			JsonArray _comments = result.get("data").asArray();
+			Builder comments_builder = ListValue.newBuilder();
+			for (JsonValue _comment : _comments) {
+				comments_builder.addValue(_comment.asObject().get("message").asString());
+			}
 			
 			GCD gcd = new GCD(projectId);			
-			gcd.createPhoto(this.pageId, photoId, url, count); // save entities, kind: page id, key: photo id.
+			gcd.createPhoto(this.pageId, photoId, url, like_count, comments_builder.build()); // save entities, kind: page id, key: photo id.
 		}
 	}
 	

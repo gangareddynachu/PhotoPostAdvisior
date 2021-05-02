@@ -6,6 +6,7 @@ import com.google.cloud.datastore.Datastore;
 import com.google.cloud.datastore.DatastoreOptions;
 import com.google.cloud.datastore.Entity;
 import com.google.cloud.datastore.Key;
+import com.google.cloud.datastore.ListValue;
 import com.google.cloud.datastore.Query;
 import com.google.cloud.datastore.QueryResults;
 
@@ -97,19 +98,21 @@ public class GCD {
 	/**
 	 * Create a photo of cloud datastore with the specified kind and name, together with an URL property.
 	 * 
-	 * @param kind	The 'kind' of the entity. 
-	 * @param name	The 'name' of the entity
-	 * @param url	The url string.
-	 * @param likes	The number of likes.
-	 * @return		The Entity in the cloud datastore.
+	 * @param kind		The 'kind' of the entity. 
+	 * @param name		The 'name' of the entity
+	 * @param url		The url string.
+	 * @param likes		The number of likes.
+	 * @param comments	The list values of comments.
+	 * @return			The Entity in the cloud datastore.
 	 */
-	public Entity createPhoto(String kind, String name, String url, int likes) {
+	public Entity createPhoto(String kind, String name, String url, int likes, ListValue comments) {
 		Key key = this.datastore.newKeyFactory()
 			    .setKind(kind)
 			    .newKey(name);
 		Entity entity = Entity.newBuilder(key)
 				.set("url", url)
 				.set("likes", likes)
+				.set("comments", comments)
 			    .build();
 		Entity put = this.datastore.put(entity);
 		return put;
