@@ -17,13 +17,12 @@ import com.google.cloud.datastore.ListValue;
 import com.google.cloud.datastore.ListValue.Builder;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;
+import com.restfb.FacebookClient.AccessToken;
 import com.restfb.Parameter;
 import com.restfb.Version;
 import com.restfb.json.JsonArray;
 import com.restfb.json.JsonObject;
 import com.restfb.json.JsonValue;
-import com.restfb.scope.FacebookPermissions;
-import com.restfb.scope.ScopeBuilder;
 
 import tools.gcs.GCD;
 
@@ -49,10 +48,11 @@ public class GetPageId extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String token = request.getParameter("access_token");		
-		this.facebookClient = new DefaultFacebookClient(token, Version.LATEST);		
+		String token = request.getParameter("access_token");
+		this.facebookClient = new DefaultFacebookClient(token, Version.LATEST);
+				
 		this.pageId = this.getPageId();		
-		ArrayList<String> photoIds = this.getPhotoIds();		
+		ArrayList<String> photoIds = this.getPhotoIds();
 		this.recordPhotoInfo(photoIds);
 		
 		HttpSession session = request.getSession();
