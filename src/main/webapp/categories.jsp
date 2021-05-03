@@ -25,11 +25,7 @@
 		(HashMap<String, PhotoSet>) session.getAttribute("categories");
 %>
 
-
-
-
-
-<div class="container">
+<div class="container m-4">
 	<h1>The Analysis</h1>
 	<nav>
 	  <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -64,7 +60,11 @@
 					      <div class="modal-body">
 					      	<ul class="list-group list-group-flush">
 							  	<c:forEach items="${ category.getValue().getPhotoNames() }" var="photoName">
-									<li class="list-group-item">${ photoName }</li>
+									<li class="list-group-item">
+									<a href="https://www.facebook.com/${ photoName }" target="_blank">
+					    				${ photoName }
+					    			</a>
+									</li>
 								</c:forEach>
 							</ul>  	
 					      </div>
@@ -85,7 +85,10 @@
 				<c:forEach items="${ category.getValue().getPhotos() }" var="photo">
 					<div class="card m-2">
 					  <div class="card-header">
-					    ${ photo.getName() }
+					  	
+					    <a href="https://www.facebook.com/${ photo.getName() }" target="_blank">
+					    	${ photo.getName() }
+					    </a>
 					  </div>
 					  <div class="card-body">
 					    <p class="card-text">Category: ${ category.getKey() }</p>

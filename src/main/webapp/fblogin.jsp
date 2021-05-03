@@ -12,7 +12,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 
 </head>
-<body class="text-center">
+<body class="bg-dark">
 <script>
 	function statusChangeCallback(response) {
 		if (response.status === 'connected') {
@@ -54,18 +54,11 @@
 </script>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
 
-<!--div class="container align-middle">    
-    <h1>Photo Advisor</h1>
-    <button class="btn btn-lg btn-primary" onclick="FBLogin()">Go Analysis</button>
-</div-->
-<div class="px-3">
-<div class="align-middle">
+<div class="m-4 align-middle text-center bg-light p-4 rounded-3">
    <h1>Photo Advisor</h1>
    <p class="lead">Analysis your FB page photo posts.</p>
    <button class="btn btn-lg btn-primary" onclick="FBLogin()">Go Analysis</button>
 </div>
-</div>
-
 
 </body>
 </html>
