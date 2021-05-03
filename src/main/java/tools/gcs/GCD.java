@@ -127,4 +127,13 @@ public class GCD {
 	public QueryResults<Entity> runQuery(Query query) {
 		return this.datastore.run(query);
 	}
+	
+	public void deleteAllPhotos(String pageId) {
+		Query<Entity> query = Query.newEntityQueryBuilder().setKind(pageId).build();
+		QueryResults<Entity> photos = this.datastore.run(query);
+		while (photos.hasNext()) {
+			Entity photo = photos.next();
+			datastore.delete(photo.getKey());
+		}
+	}
 }

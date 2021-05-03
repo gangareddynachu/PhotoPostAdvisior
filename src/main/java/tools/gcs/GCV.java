@@ -124,7 +124,7 @@ public class GCV {
 		ArrayList<String> words = new ArrayList<String>();
 		for (EntityAnnotation entity : imageResponse.getLabelAnnotationsList()) {
 			words.add(entity.getDescription().toLowerCase());
-			System.out.println(entity.getDescription().toLowerCase());
+			//System.out.println("find " + entity.getDescription().toLowerCase());
 		}
 		
 		return words;

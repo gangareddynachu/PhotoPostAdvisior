@@ -15,6 +15,7 @@ import tools.gcs.Label;
 import tools.gcs.PhotoSet;
 import tools.gcs.Word2VecGCD;
 import tools.gcs.Categorization;
+import tools.gcs.GCD;
 
 /**
  * Servlet implementation class Categorize
@@ -42,9 +43,14 @@ public class Categorize extends HttpServlet {
 
 		HttpSession session = request.getSession();
 		PhotoSet photoSet = (PhotoSet) session.getAttribute("photoSet");
-		
 		HashMap<String, PhotoSet> categories = Categorization.nearest(choosedLabels, photoSet.getPhotos());
 		request.setAttribute("categories", categories);
+		
+		String pageId = session.getAttribute("pageId").toString();
+		GCD gcd = new GCD(Categorize.projectId);
+		gcd.deleteAllPhotos(pageId);
+		//System.out.println("pageid: " + pageId);
+		
 		getServletContext().getRequestDispatcher("/categories.jsp").forward(request, response);
 	}
 
