@@ -1,7 +1,6 @@
 package tools.gcs;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 import com.google.cloud.datastore.Datastore;
 import com.google.cloud.datastore.DatastoreOptions;

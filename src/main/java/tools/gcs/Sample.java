@@ -1,16 +1,10 @@
-package servlet.gcs;
+package tools.gcs;
 
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.google.cloud.datastore.Entity;
-import com.google.cloud.datastore.ListValue;
 import com.google.cloud.datastore.StringValue;
-import com.google.cloud.datastore.Value;
-
-import tools.gcs.GCD;
-import tools.gcs.Photo;
 
 public class Sample {
 	private static final String projectId = "test-eclipse-tools";

@@ -124,7 +124,7 @@ public class GCD {
 	 * @param query		The Query object to run on the datastore.
 	 * @return			The returned Query results.
 	 */
-	public QueryResults<Entity> runQuery(Query query) {
+	public QueryResults<Entity> runQuery(Query<Entity> query) {
 		return this.datastore.run(query);
 	}
 	

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import tools.gcs.Photo;
 import tools.gcs.PhotoSet;
+import tools.gcs.Sample;
 
 /**
  * Servlet implementation class GetLabels2
