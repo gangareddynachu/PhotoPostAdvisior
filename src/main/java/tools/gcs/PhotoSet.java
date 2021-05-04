@@ -127,4 +127,13 @@ public class PhotoSet implements Serializable {
 		}
 		return count;
 	}
+	
+	/**
+	 * Get the amount of the photos.
+	 * 
+	 * @return The amount of the photos
+	 */
+	public int getPhotoAmount() {
+		return this.photos.size();
+	}
 }
