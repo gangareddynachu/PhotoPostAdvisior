@@ -18,7 +18,10 @@ import tools.gcs.Categorization;
 import tools.gcs.GCD;
 
 /**
- * Servlet implementation class Categorize
+ * The Servlet for categorizing photos.
+ * 
+ * @author      Su Yeh-Tarn, ysu19@horizon.csueastbay.edu
+ * @since       1.0
  */
 @WebServlet("/Categorize")
 public class Categorize extends HttpServlet {

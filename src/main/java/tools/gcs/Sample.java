@@ -6,6 +6,13 @@ import java.util.List;
 import com.google.cloud.datastore.Entity;
 import com.google.cloud.datastore.StringValue;
 
+
+/** 
+ * The class generate the photo instances.
+ * 
+ * @author      Su Yeh-Tarn, ysu19@horizon.csueastbay.edu
+ * @since       1.0
+ */
 public class Sample {
 	private static final String projectId = "test-eclipse-tools";
 	

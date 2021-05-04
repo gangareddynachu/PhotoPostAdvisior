@@ -21,6 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /** 
+ * The class for interacting with the Google Cloud Vision.
+ * 
  * @author      Su Yeh-Tarn, ysu19@horizon.csueastbay.edu
  * @since       1.0
  */

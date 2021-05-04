@@ -11,6 +11,8 @@ import com.google.cloud.datastore.Query;
 import com.google.cloud.datastore.QueryResults;
 
 /** 
+ * The class for interacting with the Google Cloud Datastore.
+ * 
  * @author      Su Yeh-Tarn, ysu19@horizon.csueastbay.edu
  * @since       1.0
  */

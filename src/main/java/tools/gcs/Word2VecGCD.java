@@ -8,6 +8,8 @@ import com.google.cloud.datastore.Entity;
 import com.google.cloud.datastore.Key;
 
 /** 
+ * The class fetching stored vector information from the Google Could Datastore.
+ * 
  * @author      Su Yeh-Tarn, ysu19@horizon.csueastbay.edu
  * @since       1.0
  */

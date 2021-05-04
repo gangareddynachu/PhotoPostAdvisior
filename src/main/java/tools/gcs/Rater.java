@@ -3,6 +3,8 @@ package tools.gcs;
 import java.util.ArrayList;
 
 /** 
+ * The class for rating the score of photo.
+ * 
  * @author      Su Yeh-Tarn, ysu19@horizon.csueastbay.edu
  * @since       1.0
  */

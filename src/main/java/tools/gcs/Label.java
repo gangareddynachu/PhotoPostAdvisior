@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 
 /** 
+ * The class of label. Mainly, it provides the word vector.
+ * 
  * @author      Su Yeh-Tarn, ysu19@horizon.csueastbay.edu
  * @since       1.0
  */

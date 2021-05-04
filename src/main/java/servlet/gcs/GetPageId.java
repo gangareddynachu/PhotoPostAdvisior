@@ -22,8 +22,12 @@ import com.restfb.json.JsonValue;
 
 import tools.gcs.GCD;
 
+
 /**
- * Servlet implementation class GetPageId
+ * The Servlet for retrieving FB page ID from the FB Graph API.
+ * 
+ * @author      Su Yeh-Tarn, ysu19@horizon.csueastbay.edu
+ * @since       1.0
  */
 @WebServlet("/GetPageId")
 public class GetPageId extends HttpServlet {

@@ -9,6 +9,8 @@ import java.util.Map.Entry;
 import java.util.TreeMap;
 
 /** 
+ * The class of a set of photos, providing some collective information.
+ * 
  * @author      Su Yeh-Tarn, ysu19@horizon.csueastbay.edu
  * @since       1.0
  */

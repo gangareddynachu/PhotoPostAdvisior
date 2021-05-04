@@ -7,6 +7,8 @@ import java.io.Serializable;
 
 
 /** 
+ * The class of photo. It organized the collected information of the FB photo.
+ * 
  * @author      Su Yeh-Tarn, ysu19@horizon.csueastbay.edu
  * @since       1.0
  */

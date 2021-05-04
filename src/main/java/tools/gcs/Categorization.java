@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 
 /** 
+ * The class of categorizing the photos.
+ * 
  * @author      Su Yeh-Tarn, ysu19@horizon.csueastbay.edu
  * @since       1.0
  */

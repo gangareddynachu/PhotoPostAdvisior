@@ -14,8 +14,12 @@ import tools.gcs.Photo;
 import tools.gcs.PhotoSet;
 import tools.gcs.Sample;
 
+
 /**
- * Servlet implementation class GetLabels2
+ * The Servlet for collecting labels information and offering suggested labels.
+ * 
+ * @author      Su Yeh-Tarn, ysu19@horizon.csueastbay.edu
+ * @since       1.0
  */
 @WebServlet("/GetLabels")
 public class GetLabels extends HttpServlet {
