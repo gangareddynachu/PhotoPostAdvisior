@@ -29,5 +29,6 @@
 	<classpathentry kind="lib" path="C:/Users/nucklus/eclipse-workspace/Test_GSC/src/main/webapp/WEB-INF/lib/restfb-3.17.0.jar"/>
 	<classpathentry kind="lib" path="C:/Users/nucklus/eclipse-workspace/Test_GSC/src/main/webapp/WEB-INF/lib/restfb-3.17.0-javadoc.jar"/>
 	<classpathentry kind="lib" path="C:/Users/nucklus/eclipse-workspace/Test_GSC/src/main/webapp/WEB-INF/lib/restfb-3.17.0-sources.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/google-api-services-analyticsreporting-v4-rev20210106-1.31.0.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

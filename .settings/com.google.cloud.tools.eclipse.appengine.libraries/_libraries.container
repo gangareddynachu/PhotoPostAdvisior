@@ -1,8 +1,8 @@
 [
-  "objectify",
   "appengine-endpoints",
   "appengine-api",
-  "googlecloudstorage",
+  "objectify",
   "googlecloudvision",
-  "clouddatastore"
+  "clouddatastore",
+  "googlecloudstorage"
 ]
