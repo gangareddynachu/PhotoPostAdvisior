@@ -1,1 +1,1 @@
-# CS651_PhotoPostAdvisor
+# PhotoPostAdvisor
